@@ -1,4 +1,5 @@
 'use client'
+import Footer from '@/component/Footer'
 import { MoveUp } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
@@ -313,7 +314,7 @@ export default function FuturDooMPage() {
 
             {/* ── Tagline ── */}
             <div className="anim-slide-up delay-4" style={{ textAlign: 'center', marginBottom: 'clamp(16px,4vw,24px)' }}>
-              <p style={{ color: 'rgba(100,116,139,.85)', fontSize: 'clamp(.75rem,2.5vw,.88rem)', fontWeight: 300, letterSpacing: '.02em', marginBottom: 6 }}>
+              <p style={{ color: 'rgba(148,163,184,.9)', fontSize: 'clamp(.75rem,2.5vw,.88rem)', fontWeight: 300, letterSpacing: '.02em', marginBottom: 6 }}>
                 A new space where
               </p>
               <p style={{ fontSize: 'clamp(1.05rem,4vw,1.45rem)', fontWeight: 700, letterSpacing: '-.01em' }}>
@@ -321,7 +322,7 @@ export default function FuturDooMPage() {
                 <span style={{ color: 'rgba(100,116,139,.5)', fontWeight: 300, margin: '0 7px', fontSize: '.85em' }}>×</span>
                 <span style={{ color: '#22D3EE' }}>Community</span>
               </p>
-              <p style={{ color: 'rgba(100,116,139,.6)', fontSize: 'clamp(.7rem,2vw,.78rem)', lineHeight: 1.6, marginTop: 8, maxWidth: 240, marginLeft: 'auto', marginRight: 'auto' }}>
+              <p style={{ color: 'rgba(148,163,184,.9)', fontSize: 'clamp(.7rem,2vw,.78rem)', lineHeight: 1.6, marginTop: 8, maxWidth: 240, marginLeft: 'auto', marginRight: 'auto' }}>
                 The next-gen platform connecting brilliant minds with powerful AI
               </p>
             </div>
@@ -420,21 +421,7 @@ export default function FuturDooMPage() {
         </div>
 
         {/* ── Footer ── */}
-        <footer style={{ position: 'relative', zIndex: 2, borderTop: '1px solid rgba(56,130,246,.1)', padding: 'clamp(12px,3vw,18px) 20px' }}>
-          <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
-            <nav style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-              {['Disclaimer', 'Visit Us', 'Contact Us'].map(link => (
-                <a key={link} href="#" className="footer-link">{link}</a>
-              ))}
-            </nav>
-            <nav style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center' }}>
-              {['Privacy Policy', 'Terms & Conditions'].map(link => (
-                <a key={link} href="#" className="footer-link">{link}</a>
-              ))}
-              <span className="footer-link">© 2026 futurDooM Platform, Inc.</span>
-            </nav>
-          </div>
-        </footer>
+        <Footer></Footer>
 
       </main>
     </>

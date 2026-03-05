@@ -1,4 +1,5 @@
 'use client'
+import Footer from '@/component/Footer'
 import { UserRound } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
@@ -539,17 +540,7 @@ export default function ContactPage() {
       </div>
 
       {/* Footer */}
-      <footer className="footer">
-        <div className="footer-inner">
-          <nav style={{ display:'flex', gap:18, flexWrap:'wrap' }}>
-            {['Disclaimer', 'Visit Us', 'Contact Us'].map(l => <a key={l} href="#" className="footer-link">{l}</a>)}
-          </nav>
-          <nav style={{ display:'flex', gap:16, flexWrap:'wrap', alignItems:'center' }}>
-            {['Privacy Policy', 'Terms & Conditions'].map(l => <a key={l} href="#" className="footer-link">{l}</a>)}
-            <span className="footer-link">© 2026 futurDooM Platform, Inc. All rights reserved.</span>
-          </nav>
-        </div>
-      </footer>
+      <Footer></Footer>
     </>
   )
 }

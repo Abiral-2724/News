@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { UserRound } from 'lucide-react'
+import Footer from '@/component/Footer'
 
 const BirdLogo = ({ size = 26 }: { size?: number }) => (
   <svg viewBox="0 0 72 72" width={size} height={size} xmlns="http://www.w3.org/2000/svg">
@@ -425,17 +426,7 @@ export default function ExplorePage() {
       </div>
 
       {/* Footer */}
-      <footer className="footer">
-        <div className="footer-inner">
-          <nav style={{ display:'flex', gap:16, flexWrap:'wrap' }}>
-            {['Disclaimer','Visit Us','Contact Us'].map(l => <a key={l} href="#" className="footer-link">{l}</a>)}
-          </nav>
-          <nav style={{ display:'flex', gap:13, flexWrap:'wrap', alignItems:'center' }}>
-            {['Privacy Policy','Terms & Conditions'].map(l => <a key={l} href="#" className="footer-link">{l}</a>)}
-            <span className="footer-link">© 2026 futurDooM Platform, Inc. All rights reserved.</span>
-          </nav>
-        </div>
-      </footer>
+      <Footer></Footer>
       <div className="c-dot" style={{ left: mouse.x, top: mouse.y }} />
       <div className="c-ring" style={{ left: ring.x, top: ring.y }} />
     </>
