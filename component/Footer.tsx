@@ -6,87 +6,186 @@ const Footer = (props: Props) => {
   return (
     <>
       <style>{`
-        .footer-link {
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+        .fd-footer {
+          position: relative;
+          z-index: 2;
+          background: #ffffff;
+          border-top: 1px solid #E4E7EC;
+        }
+
+        .fd-footer-inner {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: clamp(32px, 4vw, 52px) clamp(20px, 5vw, 48px) clamp(20px, 3vw, 32px);
+        }
+
+        .fd-footer-top {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: clamp(24px, 4vw, 48px);
+          margin-bottom: clamp(24px, 3vw, 36px);
+          align-items: start;
+        }
+
+        @media (max-width: 580px) {
+          .fd-footer-top { grid-template-columns: 1fr; }
+        }
+
+        .fd-footer-brand-name {
+          font-family: 'DM Sans', sans-serif;
+          font-size: clamp(1rem, 2vw, 1.15rem);
+          font-weight: 700;
+          letter-spacing: -.03em;
+          color: #0D1117;
+          margin-bottom: 6px;
+        }
+
+        .fd-footer-brand-accent {
+          background: linear-gradient(90deg, #1A56DB, #4338CA);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .fd-footer-brand-sub {
+          font-family: 'DM Sans', sans-serif;
+          font-size: .72rem;
+          color: #7B8494;
+          letter-spacing: .02em;
+          font-weight: 400;
+        }
+
+        .fd-footer-links-row {
+          display: flex;
+          gap: clamp(28px, 5vw, 56px);
+          flex-wrap: wrap;
+        }
+
+        .fd-footer-col-label {
+          font-family: 'DM Sans', sans-serif;
+          font-size: .62rem;
+          font-weight: 700;
+          letter-spacing: .14em;
+          text-transform: uppercase;
+          color: #1A56DB;
+          margin-bottom: 12px;
+          display: block;
+        }
+
+        .fd-footer-col {
+          display: flex;
+          flex-direction: column;
+          gap: 9px;
+        }
+
+        .fd-footer-link {
+          font-family: 'DM Sans', sans-serif;
+          font-size: .78rem;
+          color: #3D4552;
           text-decoration: none;
-          transition: color .18s ease;
+          font-weight: 400;
+          transition: color .16s ease;
+          white-space: nowrap;
         }
-        .footer-link:hover {
-          color: #2563EB !important;
+
+        .fd-footer-link:hover { color: #1A56DB; }
+
+        .fd-footer-divider {
+          height: 1px;
+          background: #E4E7EC;
+          margin-bottom: clamp(16px, 2vw, 22px);
         }
-        @keyframes dotPulse {
-          0%, 100% { opacity: 1; box-shadow: 0 0 6px #22C55E; }
-          50%       { opacity: .5; box-shadow: 0 0 2px #22C55E; }
+
+        .fd-footer-bottom {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+        }
+
+        .fd-footer-copy {
+          font-family: 'DM Sans', sans-serif;
+          font-size: .68rem;
+          color: #7B8494;
+          letter-spacing: .01em;
+        }
+
+        .fd-footer-status {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          padding: 5px 12px;
+          border-radius: 999px;
+          background: rgba(18, 161, 80, .06);
+          border: 1px solid rgba(18, 161, 80, .2);
+        }
+
+        .fd-footer-status-dot {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #12A150;
+          box-shadow: 0 0 0 2px rgba(18,161,80,.2);
+          animation: fd-dot-pulse 2.4s ease-in-out infinite;
+        }
+
+        .fd-footer-status-label {
+          font-family: 'DM Sans', sans-serif;
+          font-size: .62rem;
+          color: #12A150;
+          font-weight: 600;
+          letter-spacing: .07em;
+          text-transform: uppercase;
+        }
+
+        @keyframes fd-dot-pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: .5; }
         }
       `}</style>
 
-      <footer style={{
-        position: 'relative',
-        zIndex: 2,
-        background: '#ffffff',
-        borderTop: '1px solid #E2E8F0',
-        padding: 'clamp(20px,4vw,32px) clamp(16px,5vw,40px)'
-      }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <footer className="fd-footer">
+        <div className="fd-footer-inner">
 
-          {/* Top row — brand + links */}
-          <div style={{
-            display: 'flex', flexWrap: 'wrap',
-            alignItems: 'flex-start', justifyContent: 'space-between',
-            gap: 'clamp(16px,3vw,24px)', marginBottom: 'clamp(16px,3vw,24px)'
-          }}>
-
-            {/* Brand */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 140 }}>
-              <span style={{ fontFamily: 'Geist, system-ui, sans-serif', fontWeight: 800, fontSize: 'clamp(.95rem,2vw,1.1rem)', letterSpacing: '-.02em' }}>
-                <span style={{ color: 'black', fontWeight: 300 }}>futur</span>
-                <span style={{ background: 'linear-gradient(90deg,#2563EB,#3B82F6,#6366F1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>DooM</span>
-              </span>
-              <span style={{ fontSize: '0.70rem', color: 'black', letterSpacing: '.03em' }}>Intelligence × Community</span>
+          {/* Top row */}
+          <div className="fd-footer-top">
+            <div>
+              <div className="fd-footer-brand-name">
+                futur<span className="fd-footer-brand-accent">DooM</span>
+              </div>
+              <div className="fd-footer-brand-sub">Intelligence × Community</div>
             </div>
 
-            {/* Link groups */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'clamp(20px,4vw,48px)' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <span style={{ fontSize: '.58rem', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#2563EB', marginBottom: 2 }}>Company</span>
+            <div className="fd-footer-links-row">
+              <div className="fd-footer-col">
+                <span className="fd-footer-col-label">Company</span>
                 {['Disclaimer', 'Visit Us', 'Contact Us'].map(link => (
-                  <a key={link} href="#" className="footer-link" style={{ fontSize: '.72rem', color: '#64748B' }}>{link}</a>
+                  <a key={link} href="#" className="fd-footer-link">{link}</a>
                 ))}
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <span style={{ fontSize: '.58rem', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#2563EB', marginBottom: 2 }}>Legal</span>
+              <div className="fd-footer-col">
+                <span className="fd-footer-col-label">Legal</span>
                 {['Privacy Policy', 'Terms & Conditions'].map(link => (
-                  <a key={link} href="#" className="footer-link" style={{ fontSize: '.72rem', color: '#64748B' }}>{link}</a>
+                  <a key={link} href="#" className="fd-footer-link">{link}</a>
                 ))}
               </div>
             </div>
           </div>
 
           {/* Divider */}
-          <div style={{ height: 1, background: '#E2E8F0', marginBottom: 'clamp(12px,2vw,18px)' }} />
+          <div className="fd-footer-divider" />
 
-          {/* Bottom row — copyright + status */}
-          <div style={{
-            display: 'flex', flexWrap: 'wrap',
-            alignItems: 'center', justifyContent: 'space-between', gap: 10
-          }}>
-            <span style={{ fontSize: '.65rem', color: 'black', letterSpacing: '.01em' }}>
+          {/* Bottom row */}
+          <div className="fd-footer-bottom">
+            <span className="fd-footer-copy">
               © 2026 futurDooM Platform, Inc. All rights reserved.
             </span>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 6,
-              padding: '4px 10px', borderRadius: 999,
-              background: 'rgba(34,197,94,.06)',
-              border: '1px solid rgba(34,197,94,.2)'
-            }}>
-              <div style={{
-                width: 5, height: 5, borderRadius: '50%',
-                background: '#22C55E',
-                boxShadow: '0 0 6px #22C55E',
-                animation: 'dotPulse 2s ease-in-out infinite'
-              }} />
-              <span style={{ fontSize: '.6rem', color: '#16A34A', fontWeight: 600, letterSpacing: '.06em' }}>
-                ALL SYSTEMS OPERATIONAL
-              </span>
+            <div className="fd-footer-status">
+              <div className="fd-footer-status-dot" />
+              <span className="fd-footer-status-label">All Systems Operational</span>
             </div>
           </div>
 

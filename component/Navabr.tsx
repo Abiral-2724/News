@@ -2,39 +2,28 @@
 import { useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 
-/* ── Bird Logo ── */
-const BirdLogo = ({ size = 22 }: { size?: number }) => (
-  <svg viewBox="0 0 72 72" width={size} height={size} xmlns="http://www.w3.org/2000/svg">
+/* ── Logomark ── */
+const FDMark = () => (
+  <svg viewBox="0 0 32 32" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="32" height="32" rx="8" fill="url(#fdg)"/>
     <defs>
-      <linearGradient id="nb1" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#2563EB"/>
-        <stop offset="50%" stopColor="#3B82F6"/>
-        <stop offset="100%" stopColor="#6366F1"/>
-      </linearGradient>
-      <linearGradient id="nb2" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#60A5FA"/>
-        <stop offset="100%" stopColor="#2563EB"/>
+      <linearGradient id="fdg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#1A56DB"/><stop offset="1" stopColor="#4338CA"/>
       </linearGradient>
     </defs>
-    <path d="M16 30 Q28 10 48 18 Q40 26 26 27 Z" fill="url(#nb2)" opacity="0.9"/>
-    <path d="M18 36 Q34 18 52 24 Q43 34 28 33 Z" fill="url(#nb1)" opacity="0.75"/>
-    <ellipse cx="38" cy="40" rx="13" ry="8" fill="url(#nb1)" transform="rotate(-18 38 40)"/>
-    <path d="M47 46 Q60 56 55 64 Q50 57 45 53 Z" fill="url(#nb2)" opacity="0.8"/>
-    <circle cx="28" cy="32" r="7.5" fill="url(#nb1)"/>
-    <circle cx="26" cy="30" r="2.2" fill="white" opacity="0.95"/>
-    <circle cx="26.5" cy="30.5" r="1" fill="#1E3A8A"/>
-    <path d="M23 33 Q15 32 11 34" stroke="url(#nb2)" strokeWidth="2.2" strokeLinecap="round" fill="none"/>
+    <path d="M9 10h9M9 16h6M9 22h8" stroke="white" strokeWidth="2.2" strokeLinecap="round"/>
+    <circle cx="22" cy="10" r="2" fill="white" opacity=".7"/>
   </svg>
 )
 
-const ArrowRight = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M5 12h14M12 5l7 7-7 7"/>
+const ChevronRight = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+    <path d="M9 18l6-6-6-6"/>
   </svg>
 )
 
 const MenuIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
     <line x1="3" y1="6" x2="21" y2="6"/>
     <line x1="3" y1="12" x2="21" y2="12"/>
     <line x1="3" y1="18" x2="21" y2="18"/>
@@ -42,7 +31,7 @@ const MenuIcon = () => (
 )
 
 const CloseIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
     <line x1="18" y1="6" x2="6" y2="18"/>
     <line x1="6" y1="6" x2="18" y2="18"/>
   </svg>
@@ -57,218 +46,240 @@ export default function Navbar({ active }: NavbarProps) {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const isActive = (href: string, label: string) => {
-    if (active) return label === active
-    if (href === '/') return pathname === '/'
-    return pathname?.startsWith(href)
-  }
-
-  const handleGetStarted = () => {
-    setMenuOpen(false)
-    router.push('/')
-  }
-
-  const handleSignIn = () => {
-    setMenuOpen(false)
-    router.push('/')
-  }
+  const handleGetStarted = () => { setMenuOpen(false); router.push('/') }
+  const handleSignIn     = () => { setMenuOpen(false); router.push('/') }
 
   return (
     <>
       <style>{`
-        @keyframes nb-shimmer { from{background-position:-300% center} to{background-position:300% center} }
-        @keyframes nb-slide-down {
-          from { opacity: 0; transform: translateY(-8px); }
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+        @keyframes nb-fade-down {
+          from { opacity: 0; transform: translateY(-6px); }
           to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── Base nav ── */
-        .nb-nav {
-          position: sticky; top: 0; z-index: 100;
-          background: #ffffff;
-          border-bottom: 1px solid #E2E8F0;
-          box-shadow: 0 1px 0 rgba(0,0,0,.05), 0 2px 8px rgba(0,0,0,.04);
+        .nb2-nav {
+          position: sticky;
+          top: 0;
+          z-index: 200;
+          background: rgba(255,255,255,.97);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid #E4E7EC;
+          box-shadow: 0 1px 0 rgba(13,17,23,.04), 0 2px 10px rgba(13,17,23,.04);
         }
 
-        .nb-inner {
-          display: flex; align-items: center; justify-content: space-between;
-          padding: 0 clamp(16px, 4vw, 56px);
-          height: 64px;
+        .nb2-inner {
           max-width: 1280px;
           margin: 0 auto;
-          width: 100%;
+          height: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 clamp(16px, 4vw, 48px);
         }
 
-        .nb-left  { display: flex; align-items: center; }
-        .nb-right { display: flex; align-items: center; gap: 8px; }
-
-        /* ── Brand ── */
-        .nb-brand {
-          display: flex; align-items: center; gap: 10px;
-          text-decoration: none; margin-right: 28px;
+        .nb2-brand {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          text-decoration: none;
           flex-shrink: 0;
         }
-        .nb-brand-icon {
-          width: 36px; height: 36px; border-radius: 9px;
-          background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
-          border: 1px solid #BFDBFE;
-          display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 1px 4px rgba(37,99,235,.1);
+
+        .nb2-brand-icon {
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+
+        .nb2-brand-name {
+          font-family: 'DM Sans', sans-serif;
+          font-size: .98rem;
+          font-weight: 700;
+          letter-spacing: -.035em;
+          color: #0D1117;
+        }
+
+        .nb2-brand-doom {
+          background: linear-gradient(90deg, #1A56DB, #4338CA);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .nb2-divider {
+          width: 1px;
+          height: 18px;
+          background: #E4E7EC;
+          margin: 0 6px;
           flex-shrink: 0;
         }
-        .nb-brand-name {
-          font-family: 'Geist', system-ui, sans-serif;
-          font-size: 1.05rem; font-weight: 700;
-          letter-spacing: -.03em; color: #0F172A;
+
+        .nb2-actions {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .nb2-btn-ghost {
+          font-family: 'DM Sans', sans-serif;
+          font-size: .8rem;
+          font-weight: 600;
+          letter-spacing: -.01em;
+          color: #3D4552;
+          padding: 7px 14px;
+          border-radius: 7px;
+          border: 1px solid #E4E7EC;
+          background: #ffffff;
+          cursor: pointer;
+          transition: all .16s ease;
           white-space: nowrap;
         }
-        .nb-brand-accent {
-          background: linear-gradient(90deg, #2563EB, #4F46E5, #7C3AED, #2563EB);
-          background-size: 300% auto;
-          -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-          animation: nb-shimmer 6s linear infinite;
+        .nb2-btn-ghost:hover {
+          background: #F7F8FA;
+          border-color: #CDD2DA;
+          color: #0D1117;
         }
 
-        /* ── Separator ── */
-        .nb-sep { width: 1px; height: 20px; background: #E2E8F0; margin: 0 4px; }
-
-        /* ── Ghost button ── */
-        .nb-btn-ghost {
-          display: flex; align-items: center; gap: 6px;
-          padding: 7px 16px; border-radius: 8px;
-          font-family: 'Geist', system-ui, sans-serif;
-          font-size: .82rem; font-weight: 600; letter-spacing: -.01em;
-          cursor: pointer; border: 1px solid #E2E8F0;
-          background: #fff; color: #374151;
-          transition: all .18s ease;
+        .nb2-btn-primary {
+          font-family: 'DM Sans', sans-serif;
+          font-size: .8rem;
+          font-weight: 600;
+          letter-spacing: -.01em;
+          color: #ffffff;
+          padding: 7px 16px;
+          border-radius: 7px;
+          border: 1px solid #1A56DB;
+          background: #1A56DB;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          transition: all .16s ease;
           white-space: nowrap;
+          box-shadow: 0 1px 3px rgba(26,86,219,.28), 0 0 0 0 rgba(26,86,219,0);
         }
-        .nb-btn-ghost:hover { background: #F8FAFC; border-color: #CBD5E1; color: #111827; }
-
-        /* ── Primary button ── */
-        .nb-btn-primary {
-          display: flex; align-items: center; gap: 6px;
-          padding: 7px 18px; border-radius: 8px;
-          font-family: 'Geist', system-ui, sans-serif;
-          font-size: .82rem; font-weight: 600; letter-spacing: -.01em;
-          cursor: pointer; border: 1px solid #2563EB;
-          background: #2563EB; color: #fff;
-          box-shadow: 0 1px 4px rgba(37,99,235,.22);
-          transition: all .18s ease;
-          white-space: nowrap;
+        .nb2-btn-primary:hover {
+          background: #1347B8;
+          border-color: #1347B8;
+          box-shadow: 0 3px 12px rgba(26,86,219,.36);
+          transform: translateY(-1px);
         }
-        .nb-btn-primary:hover { background: #1D4ED8; border-color: #1D4ED8; box-shadow: 0 2px 10px rgba(37,99,235,.35); }
 
-        /* ── Hamburger button ── */
-        .nb-hamburger {
+        .nb2-hamburger {
           display: none;
-          align-items: center; justify-content: center;
-          width: 40px; height: 40px; border-radius: 8px;
-          background: none; border: 1px solid #E2E8F0;
-          cursor: pointer; color: #374151;
-          transition: all .18s ease;
+          align-items: center;
+          justify-content: center;
+          width: 36px;
+          height: 36px;
+          border-radius: 7px;
+          border: 1px solid #E4E7EC;
+          background: #ffffff;
+          cursor: pointer;
+          color: #3D4552;
+          transition: all .16s ease;
           flex-shrink: 0;
         }
-        .nb-hamburger:hover { background: #F1F5F9; border-color: #CBD5E1; }
+        .nb2-hamburger:hover {
+          background: #F7F8FA;
+          border-color: #CDD2DA;
+          color: #0D1117;
+        }
 
-        /* ── Mobile drawer ── */
-        .nb-drawer {
+        .nb2-drawer {
           display: none;
           flex-direction: column;
           gap: 8px;
-          padding: 16px clamp(16px, 4vw, 56px) 20px;
-          border-top: 1px solid #E2E8F0;
-          background: #fff;
-          animation: nb-slide-down .2s ease;
+          padding: 14px clamp(16px, 4vw, 48px) 18px;
+          border-top: 1px solid #E4E7EC;
+          background: #ffffff;
+          animation: nb-fade-down .2s ease both;
         }
-        .nb-drawer.open { display: flex; }
+        .nb2-drawer.open { display: flex; }
 
-        .nb-drawer-btn {
+        .nb2-drawer-btn {
           width: 100%;
-          display: flex; align-items: center; justify-content: center; gap: 6px;
-          padding: 11px 18px; border-radius: 10px;
-          font-family: 'Geist', system-ui, sans-serif;
-          font-size: .9rem; font-weight: 600; letter-spacing: -.01em;
-          cursor: pointer; transition: all .18s ease;
+          padding: 11px;
+          border-radius: 9px;
+          font-family: 'DM Sans', sans-serif;
+          font-size: .88rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all .16s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
         }
-        .nb-drawer-btn.ghost {
-          background: #F8FAFC; border: 1px solid #E2E8F0; color: #374151;
+        .nb2-drawer-btn.ghost {
+          background: #F7F8FA;
+          border: 1px solid #E4E7EC;
+          color: #3D4552;
         }
-        .nb-drawer-btn.ghost:hover { background: #F1F5F9; border-color: #CBD5E1; }
-        .nb-drawer-btn.primary {
-          background: #2563EB; border: 1px solid #2563EB; color: #fff;
-          box-shadow: 0 1px 4px rgba(37,99,235,.22);
+        .nb2-drawer-btn.ghost:hover { background: #ECEEF2; }
+        .nb2-drawer-btn.primary {
+          background: #1A56DB;
+          border: 1px solid #1A56DB;
+          color: #ffffff;
+          box-shadow: 0 2px 8px rgba(26,86,219,.28);
         }
-        .nb-drawer-btn.primary:hover { background: #1D4ED8; }
+        .nb2-drawer-btn.primary:hover { background: #1347B8; }
 
-        /* ── Responsive breakpoints ── */
-
-        /* Tablet & small desktop: compress padding, smaller text */
-        @media (max-width: 768px) {
-          .nb-brand { margin-right: 0; }
-          .nb-sep   { display: none; }
-          .nb-right { display: none; }
-          .nb-hamburger { display: flex; }
+        @media (max-width: 640px) {
+          .nb2-actions { display: none; }
+          .nb2-divider { display: none; }
+          .nb2-hamburger { display: flex; }
         }
 
-        /* Large mobile: show hamburger, hide desktop buttons */
-        @media (max-width: 480px) {
-          .nb-brand-name { font-size: .95rem; }
-          .nb-brand-icon { width: 32px; height: 32px; }
-        }
-
-        /* Very small phones */
-        @media (max-width: 360px) {
-          .nb-inner { padding: 0 14px; }
-          .nb-brand-name { font-size: .85rem; }
-          .nb-brand { gap: 8px; }
+        @media (max-width: 400px) {
+          .nb2-inner { padding: 0 14px; }
         }
       `}</style>
 
-      <nav className="nb-nav">
-        <div className="nb-inner">
-          {/* Left: brand */}
-          <div className="nb-left">
-            <a href="/" className="nb-brand">
-              <div className="nb-brand-icon">
-                <BirdLogo size={22} />
-              </div>
-              <span className="nb-brand-name">
-                futur<span className="nb-brand-accent">DooM</span>
-              </span>
-            </a>
-            <div className="nb-sep" />
-          </div>
+      <nav className="nb2-nav">
+        <div className="nb2-inner">
+          {/* Brand */}
+          <a href="/" className="nb2-brand">
+            <div className="nb2-brand-icon">
+              <FDMark />
+            </div>
+            <span className="nb2-brand-name">
+              futur<span className="nb2-brand-doom">DooM</span>
+            </span>
+          </a>
 
-          {/* Right: desktop action buttons */}
-          <div className="nb-right">
-            <button className="nb-btn-ghost" onClick={handleSignIn}>
+          <div className="nb2-divider" />
+
+          {/* Desktop actions */}
+          <div className="nb2-actions">
+            <button className="nb2-btn-ghost" onClick={handleSignIn}>
               Sign In
             </button>
-            <button className="nb-btn-primary" onClick={handleGetStarted}>
-              Get Started <ArrowRight />
+            <button className="nb2-btn-primary" onClick={handleGetStarted}>
+              Get Started <ChevronRight />
             </button>
           </div>
 
-          {/* Hamburger: shown on mobile */}
+          {/* Mobile hamburger */}
           <button
-            className="nb-hamburger"
-            onClick={() => setMenuOpen(prev => !prev)}
+            className="nb2-hamburger"
+            onClick={() => setMenuOpen(p => !p)}
             aria-label="Toggle menu"
-            aria-expanded={menuOpen}
           >
             {menuOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
         </div>
 
         {/* Mobile drawer */}
-        <div className={`nb-drawer${menuOpen ? ' open' : ''}`}>
-          <button className="nb-drawer-btn ghost" onClick={handleSignIn}>
-            Sign In
-          </button>
-          <button className="nb-drawer-btn primary" onClick={handleGetStarted}>
-            Get Started <ArrowRight />
-          </button>
+        <div className={`nb2-drawer${menuOpen ? ' open' : ''}`}>
+          <button className="nb2-drawer-btn ghost" onClick={handleSignIn}>Sign In</button>
+          <button className="nb2-drawer-btn primary" onClick={handleGetStarted}>Get Started</button>
         </div>
       </nav>
     </>
